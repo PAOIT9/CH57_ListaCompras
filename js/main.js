@@ -5,8 +5,12 @@ const btnClear = document.getElementById("btnClear");
 
 const alertValidaciones = document.getElementById("alertValidaciones");
 const alertValidacionesTexto = document.getElementById("alertValidacionesTexto");
+const tablaListaCompras = document.getElementById("tablaListaCompras");
+const cuerpoTabla = tablaListaCompras.getElementsByTagName("tbody").item(0);
 
 
+
+let cont = 0;
 
 function validarCantidad() {
     if (txtNumber.value.length == 0) {
@@ -24,12 +28,13 @@ function validarCantidad() {
     return true;
 }//Validar Cantidad
 
-function getPrecio(){
-    return Math.round(Math.random() * 10000) /100;
+function getPrecio() {
+    return Math.round(Math.random() * 10000) / 100;
 }//Get precio
 
 btnAgregar.addEventListener("click", function (event) {
     event.preventDefault();
+    let isValid = true;
     alertValidacionesTexto.innerHTML = "";
     alertValidaciones.style.display = "none";
     txtName.style.border = "";
@@ -42,13 +47,32 @@ btnAgregar.addEventListener("click", function (event) {
         alertValidacionesTexto.innerHTML =
             "<strong> El nombre del producto no es correcto</strong></br>";
         alertValidaciones.style.display = "block";
-    }
+        isValid = false;
+    }//<3
     if (!validarCantidad()) {
         txtNumber.style.border = "medium red solid";
         alertValidacionesTexto.innerHTML +=
             "<strong> La cantidad no es correcta</strong>";
         alertValidaciones.style.display = "block";
+        isValid = false;
 
     }//! validarcantidad
+
+    if (isValid) {
+        cont++;
+        let precio = getPrecio();
+        let row = `<tr>
+        <td>${cont}</td>
+         <td>${txtName.value}</td>
+          <td>${txtNumber.value}</td>
+           <td>${precio}</td>
+                     </tr>
+        `;
+
+        cuerpoTabla.insertAdjacentHTML("beforeend", row);
+        txtName.value = "";
+        txtNumber.value = "";
+        txtName.focus();
+    }//isValid
 
 });//btnAgregar click 
