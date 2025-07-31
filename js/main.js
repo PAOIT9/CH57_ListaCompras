@@ -24,6 +24,10 @@ function validarCantidad() {
     return true;
 }//Validar Cantidad
 
+function getPrecio(){
+    return Math.round(Math.random() * 10000) /100;
+}//Get precio
+
 btnAgregar.addEventListener("click", function (event) {
     event.preventDefault();
     alertValidacionesTexto.innerHTML = "";
@@ -40,7 +44,7 @@ btnAgregar.addEventListener("click", function (event) {
         alertValidaciones.style.display = "block";
     }
     if (!validarCantidad()) {
-        txtName.style.border = "medium red solid";
+        txtNumber.style.border = "medium red solid";
         alertValidacionesTexto.innerHTML +=
             "<strong> La cantidad no es correcta</strong>";
         alertValidaciones.style.display = "block";
